@@ -1,0 +1,4 @@
+FROM nginx:alpine
+
+RUN echo "Estas usando Docker Compose"
+RUN echo "Hola Soy ${MIARGUMENTO}"

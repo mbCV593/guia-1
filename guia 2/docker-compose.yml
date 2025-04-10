@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  nginx: #1
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        MIARGUMENTO: "Soy un argumento"
+    container_name: mynginx_svc
+    restart: always
+    environment:
+      MIVARIABLE: "Este mensaje desde docker compose"
+    ports:
+      - 8080:80
+    volumes:
+      - ./html/:/usr/share/nginx/html
+    networks:
+      ngnix_network:
+        aliases:
+          - nginx_host
+    
+  nginx2: #2
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        MIARGUMENTO: "Soy un argumento"
+    container_name: mynginx2_svc
+    restart: always
+    environment:
+      MIVARIABLE: "Este mensaje desde docker compose"
+    ports:
+      - 8180:80
+    volumes:
+      - ./html2/:/usr/share/nginx/html
+    networks:
+      ngnix_network:
+        aliases:
+          - nginx2_host
+volumes:
+  html: {}
+  html2: {}
+
+networks:
+  ngnix_network:
+    name: ngnix_net
+    driver: bridge
+    ipam:
+      driver: default
